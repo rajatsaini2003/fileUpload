@@ -21,9 +21,9 @@ cloudinary.cloudinaryConnect();
 
 //api route mounting
 const upload = require('./routes/FileUpload');
-app.use('api/v1/upload',upload);
+app.use('/api/v1/upload',upload);
 
 // activate server
 app.listen(port, () => {
-    console.log(`App is running on port ${port} `);
+    console.log(`App is running on port ${port}`);
 })
