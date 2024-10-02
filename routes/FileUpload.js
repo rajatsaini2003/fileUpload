@@ -5,5 +5,7 @@ const {imageUpload, videoUpload, imageReducer, localFileUpload} = require('../co
 
 router.post('/localFileUpload',localFileUpload);
 router.post('/imageUpload',imageUpload);
+router.post('/videoUpload',videoUpload);
+router.post('/imageReducer',imageReducer);
 
 module.exports = router;
