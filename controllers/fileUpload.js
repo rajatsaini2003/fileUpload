@@ -7,7 +7,7 @@ exports.localFileUpload = async (req,res) =>{
         console.log("File : ",file);
 
         let path = __dirname +'/files/' + Date.now() + `.${file.name.split('.')[file.name.split('.').length-1]}` ;
-        console.log("path : ",path)
+        //console.log("path : ",path)
         file.mv(path,(err)=>{
             console.log(err);
         });
@@ -29,31 +29,30 @@ function checkFileType(fileType ,supportedTypes){
 async function uploadToCloudinary(file,folder,quality=100){
     const options={folder}
     options.quality=quality;
-    console.log("temp file path: ",file.tempFilePath);
+    //console.log("temp file path: ",file.tempFilePath);
     options.resource_type =  "auto";
     return await cloudinary.uploader.upload(file.tempFilePath,options);
 }
 
-
 exports.imageUpload= async (req, res)=>{
     try {
         const {name, tags, email} = req.body;
-        console.log(name,tags,email);
+        //console.log(name,tags,email);
         const file = req.files.imageFile;
-        console.log(file);
+        //console.log(file);
 
         const supportedTypes = ["jpg", "jpeg","png"];
         const fileType = file.name.split('.')[file.name.split('.').length-1].toLowerCase();
-        console.log(fileType);
+        //console.log(fileType);
         if(!checkFileType(fileType, supportedTypes)){
             return res.this.status(400).json({
                 success: false,
                 message: "Unsupported file type"
             })
         }
-        console.log("uploading");
+        //console.log("uploading");
         const response = await uploadToCloudinary(file,"Dummy");
-        console.log("uploaded");
+        //console.log("uploaded");
         const fileData= await File.create({
             name,
             tags,
@@ -80,21 +79,21 @@ exports.imageUpload= async (req, res)=>{
 exports.videoUpload = async (req,res)=>{
     try{
         const {name,tags,email}=req.body;
-        console.log(name,tags,email);
+        //console.log(name,tags,email);
         const file = req.files.videoFile;
 
         const supportedTypes=['mp4','mkv','mov'];
         const fileType = file.name.split('.')[file.name.split('.').length-1].toLowerCase();
-        console.log(fileType);
+        //console.log(fileType);
         if(!checkFileType(fileType,supportedTypes)){
             return res.this.status(400).json({
                 success: false,
                 message: "Unsupported file type"
             })
         }
-        console.log("uploading");
+        //console.log("uploading");
         const response = await uploadToCloudinary(file,"Dummy");
-        console.log("uploaded");
+        //console.log("uploaded");
 
         const fileData= await File.create({
             name,
@@ -118,25 +117,26 @@ exports.videoUpload = async (req,res)=>{
         })
     }
 }
+
 exports.imageReducer= async(req,res)=>{
     try {
         const {name, tags, email} = req.body;
-        console.log(name,tags,email);
+        //console.log(name,tags,email);
         const file = req.files.imageFile;
-        console.log(file);
+        //console.log(file);
 
         const supportedTypes = ["jpg", "jpeg","png"];
         const fileType = file.name.split('.')[file.name.split('.').length-1].toLowerCase();
-        console.log(fileType);
+        //console.log(fileType);
         if(!checkFileType(fileType, supportedTypes)){
             return res.this.status(400).json({
                 success: false,
                 message: "Unsupported file type"
             })
         }
-        console.log("uploading");
+        //console.log("uploading");
         const response = await uploadToCloudinary(file,"Dummy",10);
-        console.log("uploaded");
+        //console.log("uploaded");
         const fileData= await File.create({
             name,
             tags,
